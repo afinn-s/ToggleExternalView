@@ -1,6 +1,7 @@
 #include "XPLMPlugin.h"
 #include "XPLMDataAccess.h"
 #include "XPLMUtilities.h"
+#include "XPLMCamera.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +9,7 @@
 // Command Declarations
 
 XPLMCommandRef ToggleExternalView;
-static int CommandHandler(XPLMCommandRef inCommand, XPLMCommandPhase inPhase, void* inRefcon);
+static int CommandHandler(XPLMCommandRef inCommand, XPLMCommandPhase inPhase, void *inRefcon);
 
 XPLMCommandRef External;
 XPLMCommandRef Internal;
@@ -17,9 +18,26 @@ XPLMCommandRef Internal;
 
 XPLMDataRef IsExternal;
 
+// Variable Declarations
+
+XPLMCameraPosition_t PreviousCockpitPosition;
+
+// Function Definitions
+
+static int SetCockpitPosition (XPLMCameraPosition_t *outCameraPosition, int inIsLosingControl, void *inRefcon)
+{
+	if (!inIsLosingControl)
+	{
+		*outCameraPosition = PreviousCockpitPosition;
+		XPLMDontControlCamera();
+		return 1;
+	}
+	return 0;
+}
+
 //------------------------------------------------------------------------------------
 
-PLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
+PLUGIN_API int XPluginStart(char *outName, char *outSig, char *outDesc)
 {
 	// Plugin Info
 	strcpy(outName, "ToggleExternalView");
@@ -33,9 +51,9 @@ PLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 	Internal = XPLMFindCommand("sim/view/3d_cockpit_cmnd_look");
 
 	// Assign the command to a usuable function (handler)
-	XPLMRegisterCommandHandler(ToggleExternalView, CommandHandler, 1, (void *) 0);
+	XPLMRegisterCommandHandler(ToggleExternalView, CommandHandler, 1, nullptr);
 
-	// DataRef Definitoins
+	// DataRef Definitions
 
 	IsExternal = XPLMFindDataRef("sim/graphics/view/view_is_external");
 
@@ -48,10 +66,10 @@ PLUGIN_API int XPluginEnable(void)
 
 // Unused required empty functions
 PLUGIN_API void XPluginDisable(void){}
-PLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFromWho, long inMessage, void* inParam){}
+PLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFromWho, long inMessage, void *inParam){}
 
 // CommandHandler is called on execution of the 3D cockpit toggle
-int CommandHandler(XPLMCommandRef inCommand, XPLMCommandPhase inPhase, void* inRefcon)
+int CommandHandler(XPLMCommandRef inCommand, XPLMCommandPhase inPhase, void *inRefcon)
 {
 	// Code is executed on button up.
 	if (inPhase == xplm_CommandEnd)
@@ -59,9 +77,11 @@ int CommandHandler(XPLMCommandRef inCommand, XPLMCommandPhase inPhase, void* inR
         if (XPLMGetDatai(IsExternal))
         {
             XPLMCommandOnce(Internal);
+			XPLMControlCamera(xplm_ControlCameraUntilViewChanges, SetCockpitPosition, nullptr);
         }
         else
         {
+			XPLMReadCameraPosition(&PreviousCockpitPosition);
 			XPLMCommandOnce(External);
         }
 	}
