@@ -11,6 +11,9 @@ set(CMAKE_CXX_STANDARD 20)
 #TODO: Add Mac / Linux support
 
 # Preprocesor Macros
+if (WIN32)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS) # Disable compiler warnings about strcpy()
+endif()
 add_definitions(-DXPLM200=1 -DXPLM210=1 -DXPLM300=1 -DXPLM301=1 -DXPLM303=1 -DXPLM400=1 -DXPLM410) # Defines the supported SDK versions
 add_definitions(-DAPL=$<BOOL:${APPLE}> -DIBM=$<BOOL:${WIN32}> -DLIN=$<AND:$<BOOL:${UNIX}>,$<NOT:$<BOOL:${APPLE}>>>) # Defines the OS used
 
