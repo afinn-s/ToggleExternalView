@@ -20,5 +20,5 @@ shared_library(
     'ToggleExternalView',
     sources,
     name_suffix: 'xpl',
-    dependencies: [xplm_dep],
-    cpp_args: ['-fuse-ld=mold'])
+    dependencies: xplm_dep,
+    cpp_args: '-fuse-ld=mold')
