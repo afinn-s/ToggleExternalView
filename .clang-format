@@ -1,0 +1,13 @@
+# Clang Format 21
+---
+Language: Cpp
+
+AllowShortFunctionsOnASingleLine:     None
+BreakBeforeBraces:                    Allman
+BreakTemplateDeclarations:            Yes
+Cpp11BracedListStyle:                 False
+IndentWidth:                          3
+PointerAlignment:                     Left
+SpaceBeforeCpp11BracedList:           True
+TabWidth:                             3
+...
