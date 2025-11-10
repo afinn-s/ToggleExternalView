@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/c++,cmake,linux,macos,windows,git
-# Edit at https://www.toptal.com/developers/gitignore?templates=c++,cmake,linux,macos,windows,git
+# Created by https://www.toptal.com/developers/gitignore/api/c++,meson,linux,macos,windows,git
+# Edit at https://www.toptal.com/developers/gitignore?templates=c++,meson,linux,macos,windows,git
 
 ### C++ ###
 # Prerequisites
@@ -16,6 +16,7 @@
 *.pch
 
 # Compiled Dynamic libraries
+*.so
 *.dylib
 *.dll
 
@@ -27,30 +28,12 @@
 *.lai
 *.la
 *.a
+*.lib
 
 # Executables
 *.exe
 *.out
 *.app
-
-### CMake ###
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
-
-### CMake Patch ###
-CMakeUserPresets.json
-
-# External projects
-*-prefix/
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
@@ -115,6 +98,29 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
+### Meson ###
+# subproject directories
+/subprojects/*
+!/subprojects/*.wrap
+
+# Meson Directories
+meson-logs
+meson-private
+
+# Meson Files
+meson_benchmark_setup.dat
+meson_test_setup.dat
+sanitycheckcpp.cc     # C++ specific
+sanitycheckcpp.exe    # C++ specific
+
+# Ninja
+build.ninja
+.ninja_deps
+.ninja_logs
+
+# Misc
+compile_commands.json
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -141,10 +147,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/c++,cmake,linux,macos,windows,git
+# End of https://www.toptal.com/developers/gitignore/api/c++,meson,linux,macos,windows,git
 
 ### ToggleExternalView ###
-build/
+build
 
 ### clangd ###
 .cache

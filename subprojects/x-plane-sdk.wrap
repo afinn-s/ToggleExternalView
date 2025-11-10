@@ -1,0 +1,14 @@
+[wrap-file]
+directory = x-plane-sdk-4.2.0
+source_url = https://developer.x-plane.com/wp-content/plugins/code-sample-generation/sdk_zip_files/XPSDK420.zip
+source_filename = x-plane-sdk-4.2.0.zip
+source_hash = 42aeb0d525f2a7f8fd55541c071319f08967b6ec216edde197c75034ef6bcf5a
+lead_directory_missing = true
+source_fallback_url = https://github.com/mesonbuild/wrapdb/releases/download/x-plane-sdk_4.2.0-1/x-plane-sdk-4.2.0.zip
+patch_filename = x-plane-sdk_4.2.0-1_patch.zip
+patch_url = https://wrapdb.mesonbuild.com/v2/x-plane-sdk_4.2.0-1/get_patch
+patch_hash = dacd858e7c8c8cb14ef7a95decb740591c4fc21b83739e8b5252dbdeb7a3a6e1
+wrapdb_version = 4.2.0-1
+
+[provide]
+dependency_names = xplm, xpwidgets, xpcpp

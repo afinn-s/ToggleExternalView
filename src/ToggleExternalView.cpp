@@ -1,7 +1,7 @@
-#include "XPLMPlugin.h"
-#include "XPLMDataAccess.h"
-#include "XPLMUtilities.h"
-#include "XPLMCamera.h"
+#include <XPLMPlugin.h>
+#include <XPLMDataAccess.h>
+#include <XPLMUtilities.h>
+#include <XPLMCamera.h>
 
 // Command Declarations
 
