@@ -154,3 +154,6 @@ build
 
 ### clangd ###
 .cache
+
+### Meson ###
+native.ini
